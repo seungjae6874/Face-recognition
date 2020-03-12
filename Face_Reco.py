@@ -246,17 +246,18 @@ while True:
 
 
         if confidence > 75:
-            cv2.putText(image, "Unlocked", (250, 450), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
+            cv2.putText(image, "Hi Deeperent Member!", (250, 450), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 255, 0), 2)
             cv2.imshow('Face Cropper', image)
 
         else:
-            cv2.putText(image, "Locked", (250, 450), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2)
+            cv2.putText(image, "OutSider!", (250, 450), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2)
             cv2.imshow('Face Cropper', image)
 
         
 
     except:
         cv2.putText(image, "Face Not Found", (400,500), cv2.FONT_HERSHEY_COMPLEX, 1, (255,0,0),2)
+        print("Face Not Found!")
         #cv2.imshow('Fail Face Cropper',image)
         pass
 
