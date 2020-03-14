@@ -1,0 +1,50 @@
+OpenCV의 3개의 face_recognizer 기능
+1. EigenFaces recognizer - cv2.face.createEigenFaceRecognizer()
+2. FisherFaces recognizer - cv2.face.cretaeFisherFaceRecognizer()
+3. Local Binary Pattern Histogram(LBPH) 얼굴인식기
+ - cv2.face.createLBPHFaceRecognizer()
+
+
+1. EigenFaces 얼굴 인식기
+= 이 알고리즘의 특징은 얼굴의 모든 부분이 똑같이 중요하고, 유용하다는것이
+아니라는 사실을 고려. 사람마다 눈,코,입,이마 등의 다른 특징을 인식
+(얼굴의 변화영역에 초점 = 눈에서 코는 갑자기 큰 변화가 발생, 마찬가지로
+코에서 입으로도 큰 변화 발생) = 이러한 면을 비교
+장점 : 덜 중요한 구성요소를 버리므로 메모리 절약
+특징: 조명을 중요한 구성요소로 간주한다. 
+
+2. FisherFaces 얼굴 인식기
+
+= Eigenfaces의 update 버전
+ 특징 : 한 사람을 다른 사람과 구별하는 유용한 기능을 추출
+
+
+3. 마지막 LBPH인식기
+
+: 이미지의 전체를 보지않고 로컬기능을 찾는다. 각 픽셀을 인접픽셀과
+비교하면서 수행된다. 
+3*3 윈도우를 가져와 이미지를 움직일 때마다 윈도우의 중앙픽셀과
+인접픽셀을 비교, center보다 크거나 같은면 1, 작으면 0으로 이진화
+그리고 0/1값을 시계방향으로 왼쪽위부터 읽어내면 이진수 패턴 존재
+ 
+
+
+필요한 모듈 가져 오기
+실제 코딩을 시작하기 전에 코딩에 필요한 모듈을 가져와야합니다. 먼저 가져 오겠습니다.
+
+CV2는 : 인 에서 OpenCV 우리가 얼굴 인식 및 얼굴 인식에 사용할 파이썬 모듈.
+os : 이 Python 모듈을 사용하여 교육 디렉토리와 파일 이름을 읽습니다.
+numpy : OpenCV 안면 인식기가 numpy 배열을 허용하므로이 모듈을 사용하여 Python 목록을 numpy 배열로 변환합니다.
+
+
+#import OpenCV module
+import cv2
+#import os module for reading training data directories and paths
+import os
+#import numpy to convert python lists to numpy arrays as 
+#it is needed by OpenCV face recognizers
+import numpy as np
+
+#matplotlib for display our images
+import matplotlib.pyplot as plt
+%matplotlib inline 

@@ -49,7 +49,7 @@ for i in slist:
             face = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
 
         #faces폴더에 user#로 .jpg로 저장
-            file_name_path = 'training_data/s%d/user'%i+str(count)+'.jpg'
+            file_name_path = 'training_data/s%d/'%i+str(count)+'.jpg'
             cv2.imwrite(file_name_path,face)
 
         #화면에 얼굴과 현재 저장개수 표시해준다
