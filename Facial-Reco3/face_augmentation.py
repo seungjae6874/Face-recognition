@@ -43,6 +43,12 @@ def flip(image, vflip = False, hflip = False):
             
     return image
 
+def bluring(image):
+     kernel = np.ones((7,7),np.float32)/49
+     blur = cv2.filter2D(image,-1,kernel)
+     return blur
+     
+
 
 Face_ID = -1
 pev_person_name = ""
@@ -50,7 +56,7 @@ name = ["ChoiWoongJun","ChoiYeongHwan","HanJunHee", "KimJungMin","ParkSeungJae"]
 #차례로 이름 폴더마다 1장을 읽자
 i = 0
 for root,dirs,files in os.walk(Face_Images):
-    count=100
+    count=300
     for file in files:
         if file.endswith("jpeg") or file.endswith("jpg") or file.endswith("png"):
             path = os.path.join(root,file)
@@ -60,12 +66,16 @@ for root,dirs,files in os.walk(Face_Images):
             image = cv2.imread(path)
             aug1 = rotate(image)
             aug2 = flip(image)
+            #count+=1
+            #file_name_path = 'Face_Images/%s/'%person_name+str(count)+'.jpg'
+            #cv2.imwrite(file_name_path,aug1)
+            #count+=1
+            #file_name_path2 = 'Face_Images/%s/'%person_name+str(count)+'.jpg'
+            #cv2.imwrite(file_name_path2,aug2)
             count+=1
-            file_name_path = 'Face_Images/%s/'%person_name+str(count)+'.jpg'
-            cv2.imwrite(file_name_path,aug1)
-            count+=1
-            file_name_path2 = 'Face_Images/%s/'%person_name+str(count)+'.jpg'
-            cv2.imwrite(file_name_path2,aug2)
+            aug3 = bluring(image)
+            file_name_path3 = 'Face_Images/%s/'%person_name+str(count)+'.jpg'
+            cv2.imwrite(file_name_path3,aug3)
             
             
 print("All Augmentation Done!")
