@@ -14,6 +14,13 @@ face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 
 #augmentation
+def random_crop(image, row_crop_pix = 25):
+     rows, cols, _ = image.shape
+     cols_crop_pix = round((row_crop_pix *cols)/rows)
+     rows_crop_pix = int(np.floor(2*random.uniform(0,1)*row_crop_pix))
+     cols_crop_pix = int(np.floor(2*random.uniform(0,1)*cols_crop_pix).astype(int))
+     return image[row_crop_pix:rows-row_crop_pix, cols_crop_pix:cols - cols_crop_pix]
+
 def rotate(image, angle = 90, scale = 1.0):
      w = image.shape[1]
      h = image.shape[0]
@@ -56,9 +63,12 @@ name = ["ChoiWoongJun","ChoiYeongHwan","HanJunHee", "KimJungMin","ParkSeungJae"]
 #차례로 이름 폴더마다 1장을 읽자
 i = 0
 for root,dirs,files in os.walk(Face_Images):
-    count=300
+    count=600
     for file in files:
-        if file.endswith("jpeg") or file.endswith("jpg") or file.endswith("png"):
+         i=0
+         if i == 100:
+              break
+         if file.endswith("jpeg") or file.endswith("jpg") or file.endswith("png"):
             path = os.path.join(root,file)
             path2 = os.path.join(root)
             person_name = os.path.basename(root)
@@ -73,9 +83,13 @@ for root,dirs,files in os.walk(Face_Images):
             #file_name_path2 = 'Face_Images/%s/'%person_name+str(count)+'.jpg'
             #cv2.imwrite(file_name_path2,aug2)
             count+=1
-            aug3 = bluring(image)
-            file_name_path3 = 'Face_Images/%s/'%person_name+str(count)+'.jpg'
-            cv2.imwrite(file_name_path3,aug3)
+            #aug3 = bluring(image)
+            #file_name_path3 = 'Face_Images/%s/'%person_name+str(count)+'.jpg'
+            #cv2.imwrite(file_name_path3,aug3)
+            aug4 = random_crop(image)
+            file_name_path4 = 'Face_Images/%s/'%person_name+str(count)+'.jpg'
+            cv2.imwrite(file_name_path4,aug4)
+            i+=1
             
             
 print("All Augmentation Done!")
